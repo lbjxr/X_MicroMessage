@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommandContent">
+  <resultMap type="com.x.bean.CommandContent" id="CommandContent">
+    <id column="ID" jdbcType="INTEGER" property="id"/>
+    <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
+    <result column="COMMAND_ID" jdbcType="INTEGER" property="commandId"/>
+  </resultMap>
+
+  <insert id="addCommandContent" parameterType="com.x.bean.CommandContent">
+      SET @id1 = (SELECT count(ID)
+                  from micro_message.command_content) + 1;
+      INSERT INTO command_content (ID, CONTENT, COMMAND_ID) VALUE (@id1, #{content}, #{commandId})
+  </insert>
+</mapper>
